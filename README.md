@@ -1,12 +1,12 @@
-# Nexus AI — CRM with Natural Language Querying
+# Nexus AI - CRM with Natural Language Querying
 
-A CRM dashboard that replaces rigid dropdown filters with natural language queries — describe the leads you want in plain English and the UI updates instantly. Also drafts personalized outreach emails based on lead status and context.
+A CRM dashboard that replaces rigid dropdown filters with natural language queries - describe the leads you want in plain English and the UI updates instantly. Also drafts personalized outreach emails based on lead status and context.
 
 ---
 
 ## The Problem
 
-Traditional CRMs force you to think in filters — dropdowns, date pickers, status checkboxes. You know what you want ("show me leads from last week who opened the email but didn't reply") but the UI makes you translate that into 5 separate inputs.
+Traditional CRMs force you to think in filters - dropdowns, date pickers, status checkboxes. You know what you want ("show me leads from last week who opened the email but didn't reply") but the UI makes you translate that into 5 separate inputs.
 
 **Nexus AI lets you just say it.**
 
@@ -14,21 +14,21 @@ Traditional CRMs force you to think in filters — dropdowns, date pickers, stat
 
 ## Features
 
-- **Natural language filtering** — type a query like "hot leads from Mumbai added this week", get filtered results instantly
-- **AI email drafting** — generates personalized outreach based on lead name, status, and context
-- **Live CRM dashboard** — lead table with status badges, scores, and activity timestamps
-- **Streaming responses** — email drafts stream in token by token, no waiting
-- **Responsive UI** — works across screen sizes
+- **Natural language filtering** - type a query like "hot leads from Mumbai added this week", get filtered results instantly
+- **AI email drafting** - generates personalized outreach based on lead name, status, and context
+- **Live CRM dashboard** - lead table with status badges, scores, and activity timestamps
+- **Streaming responses** - email drafts stream in token by token, no waiting
+- **Responsive UI** - works across screen sizes
 
 ---
 
 ## Tech Stack
 
-- **React.js + TypeScript** — frontend
-- **Next.js** — framework + API routes
-- **Groq API** — llama-3.3-70b-versatile (fast inference, free tier)
-- **Jotai** — atomic state management
-- **Tailwind CSS** — styling
+- **React.js + TypeScript** - frontend
+- **Next.js** - framework + API routes
+- **Groq API** - llama-3.3-70b-versatile (fast inference, free tier)
+- **Jotai** - atomic state management
+- **Tailwind CSS** - styling
 
 ---
 
@@ -98,5 +98,5 @@ Groq streams personalized email based on lead context
 
 ## Built By
 
-**Shraddha Gaikwad** — Frontend Engineer  
+**Shraddha Gaikwad** - Frontend Engineer  
 [LinkedIn](https://www.linkedin.com/in/shraddha-3010/)
