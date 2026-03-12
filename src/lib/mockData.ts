@@ -1,0 +1,14 @@
+import { Lead } from '@/types/lead';
+
+export const MOCK_LEADS: Lead[] = [
+  { id: "L001", name: "Rahul Sharma", company: "TechVentures Pvt Ltd", city: "Pune", status: "New", score: 87, label: "Hot", notes: "Mentioned budget approval in last call. Very interested in enterprise plan.", last_contacted: 1, email: "rahul@techventures.in" },
+  { id: "L002", name: "Priya Mehta", company: "Bloom Retail Co.", city: "Mumbai", status: "Contacted", score: 23, label: "Cold", notes: "No response to last 2 emails. Seemed uninterested during demo.", last_contacted: 12, email: "priya@bloomretail.com" },
+  { id: "L003", name: "Amit Kumar", company: "Horizon Analytics", city: "Delhi", status: "Qualified", score: 91, label: "Hot", notes: "Requested a formal proposal. Has a team of 50+ that needs CRM.", last_contacted: 2, email: "amit@horizonanalytics.io" },
+  { id: "L004", name: "Sneha Joshi", company: "GreenPath Solutions", city: "Bangalore", status: "New", score: null, label: null, notes: "Came through LinkedIn ad. Filled out interest form but no call yet.", last_contacted: 8, email: "sneha@greenpath.co" },
+  { id: "L005", name: "Vikram Nair", company: "FastTrack Logistics", city: "Chennai", status: "Lost", score: 10, label: "Cold", notes: "Went with a competitor. Price was the main objection.", last_contacted: 21, email: "vikram@fasttrack.in" },
+  { id: "L006", name: "Ananya Singh", company: "MedCore Health", city: "Pune", status: "Contacted", score: 65, label: "Warm", notes: "Had a great demo call. Needs sign-off from their CTO before proceeding.", last_contacted: 4, email: "ananya@medcore.health" },
+  { id: "L007", name: "Rohan Desai", company: "Pixel Studios", city: "Mumbai", status: "Qualified", score: 78, label: "Hot", notes: "Small agency but high intent. Asked about API access specifically.", last_contacted: 1, email: "rohan@pixelstudios.in" },
+  { id: "L008", name: "Kavya Reddy", company: "EduSpark Learning", city: "Hyderabad", status: "New", score: null, label: null, notes: "Referral from Amit Kumar. Yet to be contacted.", last_contacted: 9, email: "kavya@eduspark.edu" },
+  { id: "L009", name: "Arjun Patel", company: "BuildRight Infra", city: "Ahmedabad", status: "Contacted", score: 44, label: "Warm", notes: "Interested but slow to respond. Follow up end of week.", last_contacted: 6, email: "arjun@buildright.in" },
+  { id: "L010", name: "Meera Kapoor", company: "Nova Fintech", city: "Delhi", status: "Qualified", score: 95, label: "Hot", notes: "CFO personally reached out. Strong buying signals. Close this week.", last_contacted: 0, email: "meera@novafintech.io" },
+];
