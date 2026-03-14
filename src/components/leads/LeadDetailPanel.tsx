@@ -172,7 +172,7 @@ export default function LeadDetailPanel({ lead, onClose }: { lead: Lead; onClose
     return (
         <div className="fixed inset-0 z-50 flex">
             <div className="flex-1 bg-black/20 backdrop-blur-sm" onClick={onClose} />
-            <div className="w-[480px] bg-white border-l border-zinc-200 flex flex-col overflow-hidden shadow-xl">
+            <div className="w-full md:w-[480px] bg-white border-l border-zinc-200 flex flex-col overflow-hidden shadow-xl">
 
                 {/* Header */}
                 <div className={`px-6 pt-5 pb-4 border-b border-zinc-100 bg-gradient-to-br ${getHeaderGradient(lead.id)}`}>
@@ -256,7 +256,7 @@ export default function LeadDetailPanel({ lead, onClose }: { lead: Lead; onClose
                     {/* Notes */}
                     <div className="rounded-xl p-4 border border-zinc-100 bg-zinc-50/60">
                         <div className="flex items-center justify-between mb-2">
-                            <p className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">Notes</p>
+                        <p className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">Notes</p>
                             {!editingNotes ? (
                                 <button onClick={() => setEditingNotes(true)} className="text-[11px] text-zinc-400 hover:text-violet-500 transition-colors">
                                     Edit

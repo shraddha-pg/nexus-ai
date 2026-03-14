@@ -19,7 +19,7 @@ const SCORE_CONFIG: Record<string, { bg: string; text: string; dot: string }> = 
 };
 
 function ScoreBadge({ score, label }: { score: number | null; label: string | null }) {
-    if (!label) return <span className="text-zinc-300 text-xs font-mono">-</span>;
+    if (!label) return <span className="text-zinc-300 text-xs font-mono">—</span>;
     const cfg = SCORE_CONFIG[label];
     return (
         <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border border-zinc-200 ${cfg.bg} ${cfg.text}`}>
@@ -147,7 +147,36 @@ export default function LeadTable() {
 
             {/* Table */}
             <div className="bg-white border border-zinc-200 rounded-2xl overflow-hidden">
-                <table className="w-full">
+
+                {/* Mobile — Card View */}
+                <div className="block md:hidden divide-y divide-zinc-100">
+                    {sorted.map(lead => (
+                        <div key={lead.id} onClick={() => setActiveLead(lead)}
+                            className="px-4 py-3 flex items-center justify-between active:bg-zinc-50 cursor-pointer">
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <p className="text-sm font-semibold text-zinc-800 truncate">{lead.name}</p>
+                                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 ${STATUS_STYLES[lead.status]}`}>
+                                        {lead.status}
+                                    </span>
+                                </div>
+                                <p className="text-xs text-zinc-400">{lead.company} · {lead.city}</p>
+                            </div>
+                            <div className="flex items-center gap-2 ml-3 flex-shrink-0">
+                                {lead.label && (
+                                    <span className={`text-xs px-2 py-0.5 rounded-full font-semibold border border-zinc-200 ${SCORE_CONFIG[lead.label].bg} ${SCORE_CONFIG[lead.label].text}`}>
+                                        {lead.label}
+                                    </span>
+                                )}
+                                <span className="text-zinc-300 text-sm">›</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop — Table View */}
+                <div className="hidden md:block overflow-x-auto">
+                <table className="w-full min-w-[640px]">
                     <thead>
                         <tr className="border-b border-zinc-100">
                             <th className="p-4 w-10">
@@ -206,6 +235,7 @@ export default function LeadTable() {
                         ))}
                     </tbody>
                 </table>
+                </div>
 
                 {sorted.length === 0 && (
                     <div className="py-16 text-center">
