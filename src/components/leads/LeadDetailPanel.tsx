@@ -365,7 +365,7 @@ export default function LeadDetailPanel({ lead, onClose }: { lead: Lead; onClose
                     </div>
                     <button onClick={handleDraftEmail} disabled={drafting}
                         className="w-full py-2.5 rounded-lg bg-violet-600 text-white text-xs font-semibold hover:bg-violet-700 transition-all disabled:opacity-40">
-                        {drafting ? 'Drafting...' : `Draft Email — ${selectedTone}`}
+                        {drafting ? 'Drafting...' : `Draft Email - ${selectedTone}`}
                     </button>
                 </div>
 
