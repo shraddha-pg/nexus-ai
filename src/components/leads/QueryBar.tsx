@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { useState } from 'react';
 import { queryAtom, leadsAtom } from '@/store/leadsStore';
 import { MOCK_LEADS } from '@/lib/mockData';
-import { Lead } from '@/types/lead';
+import { toast } from '@/components/ui/Toast';
 
 const SUGGESTIONS = [
     'Show hot leads from Pune',
@@ -31,16 +31,13 @@ export default function QueryBar() {
                 body: JSON.stringify({ type: 'filter', payload: { query } }),
             });
 
-            if (!res.ok) throw new Error('Network response was not ok');
+            if (res.status === 401) { toast.error('Invalid API key - check your GROQ_API_KEY.'); return; }
+            if (!res.ok) throw new Error('Network error');
 
-            const text = await res.text(); // safer than .json()
-            if (!text) throw new Error('Empty response');
-
-            const data = JSON.parse(text);
+            const data = await res.json();
             const filter = data.filter ?? {};
 
             let filtered = [...MOCK_LEADS];
-
             if (filter.city) filtered = filtered.filter(l => l.city.toLowerCase() === filter.city.toLowerCase());
             if (filter.status) filtered = filtered.filter(l => l.status.toLowerCase() === filter.status.toLowerCase());
             if (filter.label) filtered = filtered.filter(l => l.label?.toLowerCase() === filter.label.toLowerCase());
@@ -48,9 +45,11 @@ export default function QueryBar() {
 
             setLeads(filtered);
             setResultText(`Found ${filtered.length} leads`);
+            toast.info(`Found ${filtered.length} leads`);
         } catch (err) {
             console.error(err);
             setResultText('Something went wrong. Try again.');
+            toast.error('Query failed. Try again.');
         } finally {
             setLoading(false);
         }
@@ -64,40 +63,34 @@ export default function QueryBar() {
 
     return (
         <div className="mb-6">
-            <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 rounded-2xl blur-xl opacity-50" />
-                <div className="relative bg-[#0f1117] border border-white/10 rounded-2xl p-1 flex items-center gap-2">
-                    <div className="flex items-center gap-2 px-3 py-2 text-violet-400">
-                        <span className="text-lg">🤖</span>
-                    </div>
-                    <input
-                        value={query}
-                        onChange={e => setQuery(e.target.value)}
-                        onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                        placeholder='Try: "Show hot leads from Pune" or "Leads not contacted in 7 days"'
-                        className="flex-1 bg-transparent text-sm text-white placeholder-zinc-600 outline-none py-3"
-                    />
-                    {resultText && (
-                        <span className="text-xs text-zinc-500 font-mono whitespace-nowrap px-2">
-                            {resultText}
-                        </span>
-                    )}
-                    {query && (
-                        <button
-                            onClick={handleReset}
-                            className="px-3 py-2 text-zinc-500 hover:text-zinc-300 text-xs transition-colors"
-                        >
-                            Reset
-                        </button>
-                    )}
-                    <button
-                        onClick={handleSearch}
-                        disabled={loading}
-                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-semibold hover:opacity-90 transition-opacity whitespace-nowrap disabled:opacity-50"
-                    >
-                        {loading ? 'Thinking...' : 'Search →'}
-                    </button>
+            <div className="bg-white border border-zinc-200 rounded-2xl p-1 flex items-center gap-2 shadow-sm">
+                <div className="flex items-center gap-2 px-3 py-2 text-violet-400">
+                    <span className="text-lg">🤖</span>
                 </div>
+                <input
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleSearch()}
+                    placeholder='Try: "Show hot leads from Pune" or "Leads not contacted in 7 days"'
+                    className="flex-1 bg-transparent text-sm text-zinc-700 placeholder-zinc-300 outline-none py-3"
+                />
+                {resultText && (
+                    <span className="text-xs text-zinc-400 font-mono whitespace-nowrap px-2">
+                        {resultText}
+                    </span>
+                )}
+                {query && (
+                    <button onClick={handleReset} className="px-3 py-2 text-zinc-300 hover:text-zinc-500 text-xs transition-colors">
+                        Reset
+                    </button>
+                )}
+                <button
+                    onClick={handleSearch}
+                    disabled={loading}
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-sm font-semibold hover:opacity-90 transition-opacity whitespace-nowrap disabled:opacity-50"
+                >
+                    {loading ? 'Thinking...' : 'Search →'}
+                </button>
             </div>
 
             {/* Suggestion chips */}
@@ -106,7 +99,7 @@ export default function QueryBar() {
                     <button
                         key={s}
                         onClick={() => setQuery(s)}
-                        className="text-xs px-3 py-1.5 rounded-full bg-white/5 text-zinc-400 border border-white/8 hover:bg-white/10 hover:text-zinc-200 transition-all"
+                        className="text-xs px-3 py-1.5 rounded-full bg-white text-zinc-500 border border-zinc-200 hover:border-violet-300 hover:text-violet-500 transition-all"
                     >
                         {s}
                     </button>

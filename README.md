@@ -1,102 +1,117 @@
-# Nexus AI — CRM with Natural Language Querying
+# Nexus AI - CRM Dashboard
 
-A CRM dashboard that replaces rigid dropdown filters with natural language queries — describe the leads you want in plain English and the UI updates instantly. Also drafts personalized outreach emails based on lead status and context.
+An AI-powered CRM dashboard that replaces traditional dropdown filters with natural language queries and provides intelligent lead insights using LLM APIs.
 
----
+Built as a portfolio project to demonstrate AI integration in real-world enterprise frontend applications.
 
-## The Problem
-
-Traditional CRMs force you to think in filters — dropdowns, date pickers, status checkboxes. You know what you want ("show me leads from last week who opened the email but didn't reply") but the UI makes you translate that into 5 separate inputs.
-
-**Nexus AI lets you just say it.**
+**Live Demo:** [nexus-ai.vercel.app](https://nexus-ai.vercel.app)  
+**Tech Stack:** Next.js · TypeScript · Tailwind CSS · Jotai · Groq API
 
 ---
 
 ## Features
 
-- **Natural language filtering** — type a query like "hot leads from Mumbai added this week", get filtered results instantly
-- **AI email drafting** — generates personalized outreach based on lead name, status, and context
-- **Live CRM dashboard** — lead table with status badges, scores, and activity timestamps
-- **Streaming responses** — email drafts stream in token by token, no waiting
-- **Responsive UI** — works across screen sizes
+### Natural Language Query Bar
+Type queries like *"show me hot leads from Delhi contacted this week"* - the AI parses intent and filters the table instantly. No dropdowns, no manual filters.
+
+### Lead Detail Panel
+Click any lead to open a full detail panel with:
+- **AI Summary** - auto-generated one-line lead insight on open
+- **Status Update** - change lead status (New → Contacted → Qualified → Lost) with instant table sync via Jotai
+- **Notes Editing** - edit and save lead notes directly in the panel
+- **Email + Source** - contact info and lead source visible at a glance
+
+### AI-Powered Actions
+- **Run AI Score** - scores the lead Hot / Warm / Cold with a 0–100 score and reasoning
+- **Best Time to Contact** - AI recommends optimal outreach timing based on lead context
+- **Draft Email** - generates a personalized follow-up email with tone control (Neutral / Friendly / Formal / Urgent); uses reply strategy internally for better output
+
+### Table Features
+- **Search** - filter leads by name or company in real time
+- **Sort** - click column headers to sort by Lead name, AI Score, or Last Contact
+- **Batch AI Analysis** - select multiple leads and run AI scoring in one call
+- **Color-coded badges** - status and score labels with visual hierarchy
+
+### UX Details
+- Toast notifications for all actions (success, error, info)
+- Background scroll lock when panel is open
+- Per-lead consistent header color based on lead ID
 
 ---
 
 ## Tech Stack
 
-- **React.js + TypeScript** — frontend
-- **Next.js** — framework + API routes
-- **Groq API** — llama-3.3-70b-versatile (fast inference, free tier)
-- **Jotai** — atomic state management
-- **Tailwind CSS** — styling
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| State | Jotai |
+| AI / LLM | Groq API - llama-3.3-70b-versatile |
+| Deployment | Vercel |
 
 ---
 
 ## Getting Started
 
-### 1. Clone the repo
-
 ```bash
-git clone https://github.com/your-username/nexus-ai.git
+git clone https://github.com/shraddha-pg/nexus-ai
 cd nexus-ai
-```
-
-### 2. Install dependencies
-
-```bash
 npm install
 ```
 
-### 3. Add environment variables
-
-Create a `.env.local` file in the root:
-
-```env
+Create a `.env.local` file:
+```
 GROQ_API_KEY=your_groq_api_key_here
 ```
-
-Get a free key at [console.groq.com](https://console.groq.com) → API Keys → Create
-
-### 4. Run locally
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000).
+
+Get a free Groq API key at [console.groq.com](https://console.groq.com).
 
 ---
 
-## How It Works
+## Project Structure
 
 ```
-User types natural language query
-        ↓
-Next.js API route → Groq API (llama-3.3-70b)
-        ↓
-LLM extracts filters (status, location, date range, score)
-        ↓
-Frontend filters lead table in real-time
-        ↓
-User clicks "Draft Email" on any lead
-        ↓
-Groq streams personalized email based on lead context
+src/
+├── app/
+│   ├── api/chat/route.ts     # Groq API proxy - filter, score, email, summary, best_time
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── leads/
+│   │   ├── LeadDetailPanel.tsx   # Full lead panel with all AI features
+│   │   ├── LeadTable.tsx         # Table with search, sort, batch actions
+│   │   └── QueryBar.tsx          # Natural language filter bar
+│   └── ui/
+│       └── Toast.tsx             # Global toast notification system
+├── lib/mockData.ts
+├── store/leadsStore.ts           # Jotai atoms
+└── types/lead.ts
 ```
 
 ---
 
-## Deploy on Vercel
+## AI API Routes
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-1. Push repo to GitHub
-2. Import on [vercel.com](https://vercel.com)
-3. Add `GROQ_API_KEY` in Environment Variables
-4. Deploy
+| Type | Description |
+|---|---|
+| `filter` | Natural language → JSON filter object |
+| `score` | Batch lead scoring with label + reason |
+| `email` | Personalized email draft with tone + strategy |
+| `summary` | One-line lead summary (auto on panel open) |
+| `best_time` | Optimal contact timing with reasoning |
+| `reply_suggestion` | Tone and approach suggestion (used internally by email) |
 
 ---
 
-## Built By
+## Author
 
-**Shraddha Gaikwad** — Frontend Engineer  
+**Shraddha Gaikwad** - Frontend Engineer  
 [LinkedIn](https://www.linkedin.com/in/shraddha-3010/)
