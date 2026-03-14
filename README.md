@@ -4,7 +4,7 @@ An AI-powered CRM dashboard that replaces traditional dropdown filters with natu
 
 Built as a portfolio project to demonstrate AI integration in real-world enterprise frontend applications.
 
-**Live Demo:** [nexus-ai.vercel.app](https://nexus-ai.vercel.app)  
+**Live Demo:** [nexus-ai.vercel.app]([https://nexus-ai.vercel.app](https://nexus-ai-virid-six.vercel.app/))  
 **Tech Stack:** Next.js · TypeScript · Tailwind CSS · Jotai · Groq API
 
 ---
